@@ -211,14 +211,16 @@ void MainWindow::onDisconnected() {
 }
 
 void MainWindow::onTextMessageReceived(QString message) {
-    ui->textBrowser->append("<font color='blue'>>= Received: <br>" + message + "</font>");
+    QString timeStamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    ui->textBrowser->append("<font color='blue'>>= Received [" + timeStamp + "]: <br>" + message + "</font>");
 }
 
 void MainWindow::onSendButtonClicked() {
     QString message = ui->lineEdit->text();
     if (!message.isEmpty()) {
         m_webSocket.sendTextMessage(message);
-        ui->textBrowser->append("<font color='purple'>>= Sent: <br>" + message + "</font>");
+        QString timeStamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+        ui->textBrowser->append("<font color='purple'>>= Sent [" + timeStamp + "]: <br>" + message + "</font>");
         ui->lineEdit->clear();
     }
 }
